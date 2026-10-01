@@ -1,4 +1,5 @@
 import { FournisseurConfirmation } from "./composants/Confirmation";
+import Partie from "./ecrans/Partie";
 import Preparation from "./ecrans/Preparation";
 import { usePartie } from "./etat/usePartie";
 
@@ -8,7 +9,11 @@ export default function App() {
 
   return (
     <FournisseurConfirmation>
-      <Preparation partie={partie} actions={actions} />
+      {partie.ecran === "preparation" ? (
+        <Preparation partie={partie} actions={actions} />
+      ) : (
+        <Partie partie={partie} actions={actions} />
+      )}
     </FournisseurConfirmation>
   );
 }

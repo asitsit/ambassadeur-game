@@ -53,3 +53,138 @@
   background: none;
   cursor: pointer;
 }
+
+/* ---------- Partie ---------- */
+
+.grille-equipes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espace-4);
+  align-items: start;
+}
+
+@media (min-width: 700px) {
+  .grille-equipes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1050px) {
+  .grille-equipes {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.carte-equipe {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-3);
+  min-width: 0;
+  border-left-width: 8px;
+}
+
+.carte-equipe-haut {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-3);
+}
+
+.carte-equipe-identite {
+  flex: 1;
+  min-width: 0;
+}
+
+.nom-equipe {
+  margin: 0;
+  font-family: var(--police-texte);
+  font-weight: 700;
+  font-size: var(--taille-nom-equipe);
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.etape {
+  margin: 0;
+  font-size: var(--taille-petit);
+  color: var(--texte-secondaire);
+}
+
+.bouton-revenir {
+  color: var(--texte-secondaire);
+  font-size: 18px;
+}
+
+.bouton-revenir:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.mot {
+  margin: 0;
+  padding: var(--espace-1) 0;
+  font-family: var(--police-titre);
+  font-weight: 700;
+  font-size: var(--taille-mot);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.mot--cache {
+  width: 100%;
+  min-height: var(--hauteur-bouton);
+  padding: var(--espace-2) var(--espace-3);
+  border: 2px dashed var(--bordure);
+  border-radius: 12px;
+  background: var(--fond);
+  color: var(--texte-secondaire);
+  font-size: 22px;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Passeport : rangée de cases et tampons */
+.passeport {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.case {
+  position: relative;
+  width: var(--taille-case);
+  height: var(--taille-case);
+  border-radius: var(--rayon-case);
+  background: var(--bordure);
+}
+
+.case--en-cours {
+  background: var(--surface);
+  box-shadow: 0 0 0 2px var(--texte);
+}
+
+.tampon {
+  position: absolute;
+  inset: -3px;
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
+  transform: rotate(var(--inclinaison, 0deg));
+}
+
+.tampon--nouveau {
+  animation: tampon var(--duree-tampon) cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+@keyframes tampon {
+  from {
+    transform: rotate(var(--inclinaison, 0deg)) scale(1.4);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+}
+
+.bouton-reussi {
+  margin-top: var(--espace-1);
+  font-size: 20px;
+}
