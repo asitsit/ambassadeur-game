@@ -409,3 +409,131 @@
     opacity: 0;
   }
 }
+
+/* ---------- Panneau du bas (couleur et emoji) ---------- */
+
+.voile--panneau {
+  align-items: flex-end;
+  padding: 0;
+}
+
+.panneau {
+  width: 100%;
+  max-width: 560px;
+  max-height: 90dvh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-3);
+  padding: var(--espace-2) var(--espace-4) calc(var(--espace-4) + env(safe-area-inset-bottom));
+  border-radius: 24px 24px 0 0;
+  background: var(--surface);
+  box-shadow: 0 -8px 32px rgba(28, 33, 71, 0.25);
+  animation: panneau-monte 220ms ease-out;
+}
+
+@media (min-width: 640px) {
+  .voile--panneau {
+    align-items: center;
+    padding: var(--espace-4);
+  }
+
+  .panneau {
+    border-radius: 24px;
+  }
+}
+
+.panneau-poignee {
+  align-self: center;
+  width: 40px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--bordure);
+}
+
+.panneau-entete {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-3);
+}
+
+.panneau-titre {
+  font-size: 20px;
+  overflow-wrap: anywhere;
+}
+
+.panneau-sous-titre {
+  margin-top: var(--espace-2);
+  font-size: 17px;
+  color: var(--texte-secondaire);
+}
+
+.grille-couleurs,
+.grille-emojis {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+  gap: var(--espace-2);
+}
+
+.choix-couleur {
+  position: relative;
+  aspect-ratio: 1;
+  min-height: var(--zone-tactile-min);
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.choix-couleur--choisie {
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 6px var(--texte);
+}
+
+.choix-couleur:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.7);
+  opacity: 0.4;
+}
+
+.choix-couleur-proprietaire {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  display: flex;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--surface);
+}
+
+.choix-emoji {
+  aspect-ratio: 1;
+  min-height: var(--zone-tactile-min);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: var(--fond);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.choix-emoji--aucun {
+  font-family: var(--police-titre);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--texte-secondaire);
+}
+
+.choix-emoji--choisi {
+  border-color: var(--principal);
+  background: #dfe6ff;
+}
+
+.champ--emoji {
+  flex: none;
+  font-size: 22px;
+}
+
+@keyframes panneau-monte {
+  from {
+    transform: translateY(100%);
+  }
+}

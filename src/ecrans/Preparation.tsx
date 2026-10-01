@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import ChoixCouleurEmoji from "../composants/ChoixCouleurEmoji";
 import Entete from "../composants/Entete";
 import PastilleEquipe from "../composants/PastilleEquipe";
 import { MAX_EQUIPES } from "../constantes";
@@ -20,6 +21,9 @@ export default function Preparation({ partie, actions }: Props) {
   const demander = useConfirmation();
   const [texteMots, setTexteMots] = useState(() => partie.mots.join("\n"));
   const [erreur, setErreur] = useState<string | null>(null);
+  const [idEnChoix, setIdEnChoix] = useState<string | null>(null);
+  const fermerChoix = useCallback(() => setIdEnChoix(null), []);
+  const equipeEnChoix = partie.equipes.find((e) => e.id === idEnChoix);
 
   const commencee = partieCommencee(partie.equipes);
   const mots = lireMots(texteMots);
@@ -103,7 +107,13 @@ export default function Preparation({ partie, actions }: Props) {
             <ul className="liste-equipes">
               {partie.equipes.map((equipe) => (
                 <li key={equipe.id} className="ligne-equipe">
-                  <PastilleEquipe equipe={equipe} />
+                  <button
+                    className="bouton-pastille"
+                    onClick={() => setIdEnChoix(equipe.id)}
+                    aria-label={`Couleur et emoji de ${equipe.nom}`}
+                  >
+                    <PastilleEquipe equipe={equipe} />
+                  </button>
                   <input
                     className="champ"
                     value={equipe.nom}
@@ -148,6 +158,15 @@ export default function Preparation({ partie, actions }: Props) {
           {commencee ? "Reprendre la partie" : "Lancer la partie"}
         </button>
       </footer>
+
+      {equipeEnChoix && (
+        <ChoixCouleurEmoji
+          equipe={equipeEnChoix}
+          equipes={partie.equipes}
+          onModifier={(modification) => actions.modifierEquipe(equipeEnChoix.id, modification)}
+          onFermer={fermerChoix}
+        />
+      )}
     </div>
   );
 }
