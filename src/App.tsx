@@ -1,6 +1,14 @@
-import PageTest from "./PageTest";
+import { FournisseurConfirmation } from "./composants/Confirmation";
+import Preparation from "./ecrans/Preparation";
+import { usePartie } from "./etat/usePartie";
 
-// Pour l'instant, l'application affiche seulement la page de test du thème.
+// Choisit l'écran à afficher selon partie.ecran (pas besoin de routeur).
 export default function App() {
-  return <PageTest />;
+  const [partie, actions] = usePartie();
+
+  return (
+    <FournisseurConfirmation>
+      <Preparation partie={partie} actions={actions} />
+    </FournisseurConfirmation>
+  );
 }

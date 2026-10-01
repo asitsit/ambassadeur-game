@@ -1,0 +1,55 @@
+/* Styles propres à chaque écran. */
+
+/* ---------- Préparation ---------- */
+
+.zone-mots {
+  width: 100%;
+  min-height: 180px;
+  padding: var(--espace-3);
+  border: 2px solid var(--bordure);
+  border-radius: 12px;
+  background: var(--surface);
+  font-size: 17px;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.zone-mots:focus {
+  border-color: var(--principal);
+  outline: none;
+}
+
+.compteur {
+  font-family: var(--police-titre);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--texte-secondaire);
+}
+
+.liste-equipes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-2);
+}
+
+.ligne-equipe {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-2);
+}
+
+.bouton-pastille {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--zone-tactile-min);
+  height: var(--zone-tactile-min);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+}

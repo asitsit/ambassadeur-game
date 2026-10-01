@@ -1,0 +1,255 @@
+/* Mise en page commune et composants partagés entre les écrans. */
+
+/* ---------- Mise en page ---------- */
+
+.ecran {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.contenu {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--espace-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-4);
+  flex: 1;
+}
+
+.contenu--large {
+  max-width: 1100px;
+}
+
+.bloc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-3);
+}
+
+.aide {
+  font-size: var(--taille-petit);
+  color: var(--texte-secondaire);
+  margin: 0;
+}
+
+.centre {
+  text-align: center;
+}
+
+.vide {
+  margin: 0;
+  padding: var(--espace-4);
+  text-align: center;
+  color: var(--texte-secondaire);
+  background: var(--fond);
+  border-radius: 12px;
+}
+
+.ligne-entre {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espace-3);
+  flex-wrap: wrap;
+}
+
+.titre-section {
+  font-size: 20px;
+  margin: var(--espace-3) 0 0;
+}
+
+/* Barre collée en bas de l'écran (bouton principal) */
+.barre-bas {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-2);
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--espace-3) var(--espace-4) calc(var(--espace-3) + env(safe-area-inset-bottom));
+  background: linear-gradient(to bottom, transparent, var(--fond) 30%);
+}
+
+.erreur {
+  margin: 0;
+  padding: var(--espace-2) var(--espace-3);
+  border-radius: 12px;
+  background: #fde8eb;
+  color: #a31f30;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ---------- Champs ---------- */
+
+.champ {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--zone-tactile-min);
+  padding: var(--espace-2) var(--espace-3);
+  border: 2px solid var(--bordure);
+  border-radius: 12px;
+  background: var(--surface);
+  font-size: var(--taille-texte);
+}
+
+.champ:focus {
+  border-color: var(--principal);
+  outline: none;
+}
+
+/* ---------- Boutons supplémentaires ---------- */
+
+.bouton--petit {
+  min-height: var(--zone-tactile-min);
+  padding: 0 var(--espace-4);
+  font-size: 16px;
+}
+
+.bouton-icone--danger {
+  color: var(--danger);
+}
+
+.bouton-icone--danger:active {
+  background: rgba(217, 54, 74, 0.1);
+}
+
+/* ---------- En-tête ---------- */
+
+.entete {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--espace-3);
+  padding: var(--espace-2) var(--espace-3) var(--espace-2) var(--espace-4);
+  padding-top: calc(var(--espace-2) + env(safe-area-inset-top));
+  background: var(--principal);
+  color: var(--blanc);
+  box-shadow: 0 2px 12px rgba(45, 63, 168, 0.25);
+}
+
+.entete-titres {
+  flex: 1;
+  min-width: 0;
+}
+
+.entete-nom {
+  margin: 0;
+  font-family: var(--police-titre);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.entete-sous-titre {
+  margin: 0;
+  font-size: var(--taille-petit);
+  opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.entete-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-1);
+}
+
+.entete .bouton-icone:active,
+.entete .bouton-icone[aria-expanded="true"] {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.entete :focus-visible {
+  outline-color: var(--or-du-sceau);
+}
+
+.logo-provisoire {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--or-du-sceau);
+  font-size: 22px;
+}
+
+/* ---------- Pastille d'équipe ---------- */
+
+.pastille {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  font-family: var(--police-titre);
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+
+/* ---------- Fenêtre de confirmation ---------- */
+
+.voile {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: var(--espace-4);
+  padding-bottom: calc(var(--espace-4) + env(safe-area-inset-bottom));
+  background: rgba(28, 33, 71, 0.45);
+  animation: apparition 150ms ease-out;
+}
+
+@media (min-width: 640px) {
+  .voile {
+    align-items: center;
+  }
+}
+
+.fenetre {
+  width: 100%;
+  max-width: 420px;
+  padding: var(--espace-5);
+  animation: monte 200ms ease-out;
+}
+
+.fenetre-message {
+  margin: 0 0 var(--espace-5);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.fenetre-boutons {
+  display: flex;
+  gap: var(--espace-3);
+}
+
+.fenetre-boutons .bouton {
+  flex: 1;
+  padding: 0 var(--espace-3);
+}
+
+@keyframes apparition {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes monte {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+}
