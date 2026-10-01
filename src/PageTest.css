@@ -1,0 +1,137 @@
+/* Styles de la page de test du thème (étape 1), supprimés avec elle. */
+
+.test-entete {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--espace-3);
+  padding: var(--espace-3) var(--espace-4);
+  background: var(--principal);
+  color: var(--blanc);
+}
+
+.test-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--or-du-sceau);
+  font-size: 22px;
+}
+
+.test-contenu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-6);
+  max-width: 560px;
+  margin: 0 auto;
+  padding: var(--espace-5) var(--espace-4);
+}
+
+.test-contenu h2 {
+  font-size: 20px;
+  margin-bottom: var(--espace-3);
+}
+
+.test-palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--espace-2);
+}
+
+.test-nuance {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-2);
+  font-size: var(--taille-petit);
+}
+
+.test-echantillon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid var(--bordure);
+}
+
+.test-typo p,
+.test-carte-equipe p {
+  margin: 0;
+}
+
+.test-typo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-2);
+}
+
+.test-mot {
+  font-family: var(--police-titre);
+  font-weight: 700;
+  font-size: var(--taille-mot);
+  line-height: 1.2;
+}
+
+.test-nom {
+  font-weight: 700;
+  font-size: var(--taille-nom-equipe);
+}
+
+.test-petit {
+  font-size: var(--taille-petit);
+  color: var(--texte-secondaire);
+}
+
+.test-carte-equipe {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-3);
+  border-left-width: 8px;
+}
+
+.test-carte-haut {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-3);
+}
+
+.test-pastille {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--taille-pastille);
+  height: var(--taille-pastille);
+  flex-shrink: 0;
+  border-radius: 50%;
+  font-size: 22px;
+}
+
+.test-passeport {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.test-case {
+  width: var(--taille-case);
+  height: var(--taille-case);
+  border-radius: var(--rayon-case);
+  background: var(--bordure);
+}
+
+.test-case--en-cours {
+  background: var(--surface);
+  outline: 2px solid var(--texte);
+  outline-offset: 1px;
+}
+
+.test-boutons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espace-3);
+}

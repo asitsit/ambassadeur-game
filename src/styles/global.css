@@ -1,0 +1,157 @@
+/*
+  Styles de base et éléments réutilisables (cartes, boutons).
+  Les valeurs viennent de theme.css.
+*/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* Évite le flash bleu au toucher sur mobile */
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background-color: var(--fond);
+  color: var(--texte);
+  font-family: var(--police-texte);
+  font-size: var(--taille-texte);
+  line-height: 1.5;
+  /* L'écran ne doit jamais défiler horizontalement (section 5.9) */
+  overflow-x: hidden;
+}
+
+#root {
+  /* Zones sûres de l'iPhone : encoche et barre du bas */
+  padding:
+    env(safe-area-inset-top)
+    env(safe-area-inset-right)
+    env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--police-titre);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--taille-titre);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Contour visible au focus clavier (section 5.9) */
+:focus-visible {
+  outline: 3px solid var(--principal);
+  outline-offset: 2px;
+}
+
+/* ---------- Carte ---------- */
+
+.carte {
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-carte);
+  box-shadow: var(--ombre-carte);
+  padding: var(--espace-4);
+}
+
+/* ---------- Boutons ---------- */
+
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espace-2);
+  min-height: var(--hauteur-bouton);
+  padding: 0 var(--espace-5);
+  border: none;
+  border-radius: var(--rayon-pilule);
+  background: var(--principal);
+  color: var(--blanc);
+  font-family: var(--police-titre);
+  font-weight: 500;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: var(--ombre-bouton);
+  transition: transform 100ms ease, filter 100ms ease;
+  touch-action: manipulation;
+}
+
+.bouton:active {
+  transform: scale(0.97);
+}
+
+.bouton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.bouton--large {
+  width: 100%;
+}
+
+.bouton--succes {
+  background: var(--succes);
+  box-shadow: 0 4px 12px rgba(31, 166, 114, 0.3);
+}
+
+.bouton--danger {
+  background: var(--danger);
+  box-shadow: 0 4px 12px rgba(217, 54, 74, 0.3);
+}
+
+.bouton--secondaire {
+  background: var(--surface);
+  color: var(--principal);
+  border: 2px solid var(--bordure);
+  box-shadow: none;
+}
+
+/* Petit bouton rond (icônes : œil, menu, supprimer) */
+.bouton-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--zone-tactile-min);
+  height: var(--zone-tactile-min);
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font-size: 20px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.bouton-icone:active {
+  background: rgba(45, 63, 168, 0.1);
+}
+
+/* Respecter « Réduire les animations » du téléphone */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
