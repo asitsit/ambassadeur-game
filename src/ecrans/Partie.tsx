@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { celebrer } from "../celebration/celebrer";
 import BandeauArrivee from "../composants/BandeauArrivee";
 import CarteEquipe from "../composants/CarteEquipe";
 import Entete from "../composants/Entete";
@@ -55,6 +56,7 @@ export default function Partie({ partie, actions }: Props) {
 
     if (arrive) {
       const rang = arrivees.length + 1;
+      celebrer(equipe.couleur, partie.sonActif);
       setArrivee({ cle: Date.now(), equipe, rang });
       setMessage({
         cle: Date.now(),
