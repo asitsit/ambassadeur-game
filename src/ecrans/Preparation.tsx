@@ -137,7 +137,10 @@ export default function Preparation({ partie, actions }: Props) {
           )}
           <button
             className="bouton bouton--secondaire bouton--large"
-            onClick={actions.ajouterEquipe}
+            onClick={() => {
+              setErreur(null);
+              actions.ajouterEquipe();
+            }}
             disabled={!peutAjouterEquipe(partie.equipes)}
           >
             + Ajouter une équipe

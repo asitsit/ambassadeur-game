@@ -117,7 +117,7 @@ export default function ChoixCouleurEmoji({ equipe, equipes, onModifier, onFerme
             const symbole = premierSymbole(e.target.value);
             if (symbole) onModifier({ emoji: symbole });
           }}
-          placeholder="🦩"
+          placeholder="Coller ici"
           autoComplete="off"
         />
 

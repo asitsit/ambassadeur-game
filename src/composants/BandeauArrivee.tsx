@@ -10,7 +10,10 @@ type Props = {
   onFin: () => void;
 };
 
-/** Grand bandeau « 🦊 Les Renards : mission accomplie ! 1re place », 3 secondes. */
+/**
+ * Grand bandeau « 🦊 Les Renards : mission accomplie ! 1re place », 3 secondes.
+ * Il ne bloque pas l'écran : on peut continuer à valider les autres équipes.
+ */
 export default function BandeauArrivee({ equipe, rang, onFin }: Props) {
   useEffect(() => {
     const minuteur = setTimeout(onFin, DUREE_BANDEAU_ARRIVEE);
@@ -18,7 +21,7 @@ export default function BandeauArrivee({ equipe, rang, onFin }: Props) {
   }, [onFin]);
 
   return (
-    <div className="bandeau-arrivee" role="status" onClick={onFin}>
+    <div className="bandeau-arrivee" role="status">
       <div className="bandeau-arrivee-carte" style={{ borderColor: equipe.couleur }}>
         <PastilleEquipe equipe={equipe} taille={72} />
         <p className="bandeau-arrivee-titre">

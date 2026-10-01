@@ -9,6 +9,7 @@ import PastilleEquipe from "../composants/PastilleEquipe";
 import { DUREE_BANDEAU_ARRIVEE } from "../constantes";
 import { useConfirmation } from "../etat/confirmation";
 import { confirmerNouvellePartie } from "../etat/nouvellePartie";
+import { useEcranAllume } from "../etat/useEcranAllume";
 import { equipesArrivees, equipesEnJeu, medaille } from "../etat/regles";
 import type { ActionsPartie } from "../etat/usePartie";
 import type { Equipe, Partie as TypePartie } from "../types";
@@ -29,6 +30,7 @@ function pluriel(nombre: number, singulier: string, pluriel: string): string {
 
 export default function Partie({ partie, actions }: Props) {
   const demander = useConfirmation();
+  useEcranAllume();
   const [message, setMessage] = useState<Message | null>(null);
   const [arrivee, setArrivee] = useState<Arrivee | null>(null);
   const fermerMessage = useCallback(() => setMessage(null), []);
@@ -176,10 +178,10 @@ export default function Partie({ partie, actions }: Props) {
       </main>
 
       {arrivee && (
-        <BandeauArrivee key={arrivee.cle} equipe={arrivee.equipe} rang={arrivee.rang} onFin={fermerBandeau} />
+        <BandeauArrivee key={`bandeau-${arrivee.cle}`} equipe={arrivee.equipe} rang={arrivee.rang} onFin={fermerBandeau} />
       )}
       {message && (
-        <MessageAnnuler key={message.cle} texte={message.texte} onAnnuler={annulerMessage} onFin={fermerMessage} />
+        <MessageAnnuler key={`message-${message.cle}`} texte={message.texte} onAnnuler={annulerMessage} onFin={fermerMessage} />
       )}
     </div>
   );

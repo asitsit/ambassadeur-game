@@ -173,14 +173,9 @@
   outline-color: var(--or-du-sceau);
 }
 
-.logo-provisoire {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.logo {
   flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--or-du-sceau);
-  font-size: 22px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
 }
 
 /* ---------- Pastille d'équipe ---------- */
@@ -363,9 +358,8 @@
   align-items: center;
   justify-content: center;
   padding: var(--espace-4);
-  background: rgba(28, 33, 71, 0.35);
-  animation: apparition 200ms ease-out;
-  cursor: pointer;
+  /* Laisse passer les appuis vers les cartes en dessous */
+  pointer-events: none;
 }
 
 .bandeau-arrivee-carte {

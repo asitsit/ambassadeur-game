@@ -19,6 +19,8 @@ body {
   margin: 0;
   min-height: 100dvh;
   background-color: var(--fond);
+  /* Motif guilloché des passeports, à 5 % d'opacité : invisible derrière le texte */
+  background-image: url("/guilloche.svg");
   color: var(--texte);
   font-family: var(--police-texte);
   font-size: var(--taille-texte);
