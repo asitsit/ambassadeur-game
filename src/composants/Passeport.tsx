@@ -1,4 +1,4 @@
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import { couleurTexteSur } from "../constantes";
 import type { Equipe } from "../types";
 
@@ -27,10 +27,8 @@ function inclinaison(graine: string, index: number): number {
 export default function Passeport({ equipe, nombreDeMots }: Props) {
   // Seuls les tampons posés pendant que la carte est affichée sont animés
   // (pas tous les tampons d'un coup au rechargement de la page).
-  const dejaTamponnes = useRef(equipe.indexMot);
-  useEffect(() => {
-    if (equipe.indexMot < dejaTamponnes.current) dejaTamponnes.current = equipe.indexMot;
-  }, [equipe.indexMot]);
+  const [dejaTamponnes, setDejaTamponnes] = useState(equipe.indexMot);
+  if (equipe.indexMot < dejaTamponnes) setDejaTamponnes(equipe.indexMot);
 
   const encre = couleurTexteSur(equipe.couleur);
 
@@ -47,7 +45,7 @@ export default function Passeport({ equipe, nombreDeMots }: Props) {
           <span key={i} className={"case" + (enCours ? " case--en-cours" : "")}>
             {tamponne && (
               <svg
-                className={"tampon" + (i >= dejaTamponnes.current ? " tampon--nouveau" : "")}
+                className={"tampon" + (i >= dejaTamponnes ? " tampon--nouveau" : "")}
                 viewBox="0 0 20 20"
                 style={{ "--inclinaison": `${inclinaison(equipe.id, i)}deg` } as CSSProperties}
               >

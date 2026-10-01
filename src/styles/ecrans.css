@@ -188,3 +188,8 @@
   margin-top: var(--espace-1);
   font-size: 20px;
 }
+
+/* Place sous la dernière carte pour que le message du bas ne cache rien */
+.ecran-partie .contenu {
+  padding-bottom: 96px;
+}

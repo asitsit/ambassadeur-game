@@ -253,3 +253,55 @@
     opacity: 0;
   }
 }
+
+/* ---------- Message « Annuler » en bas ---------- */
+
+.message-annuler {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--espace-4) + env(safe-area-inset-bottom));
+  z-index: 40;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--espace-3);
+  width: calc(100% - 2 * var(--espace-4));
+  max-width: 480px;
+  padding: var(--espace-2) var(--espace-2) var(--espace-2) var(--espace-4);
+  border-radius: 16px;
+  background: var(--encre);
+  color: var(--blanc);
+  box-shadow: 0 8px 24px rgba(28, 33, 71, 0.35);
+  animation: message-monte 200ms ease-out;
+}
+
+.message-annuler-texte {
+  flex: 1;
+  min-width: 0;
+  font-weight: 700;
+}
+
+.message-annuler-bouton {
+  flex-shrink: 0;
+  min-height: var(--zone-tactile-min);
+  padding: 0 var(--espace-4);
+  border: none;
+  border-radius: var(--rayon-pilule);
+  background: var(--or-du-sceau);
+  color: var(--encre);
+  font-family: var(--police-titre);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.message-annuler :focus-visible {
+  outline-color: var(--or-du-sceau);
+}
+
+@keyframes message-monte {
+  from {
+    transform: translate(-50%, 24px);
+    opacity: 0;
+  }
+}
