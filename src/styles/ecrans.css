@@ -7,23 +7,29 @@
   min-height: 180px;
   padding: var(--espace-3);
   border: 2px solid var(--bordure);
-  border-radius: 12px;
-  background: var(--surface);
+  border-radius: 16px;
+  background: var(--fond);
   font-size: 17px;
   line-height: 1.6;
   resize: vertical;
+  transition: border-color 120ms ease, box-shadow 120ms ease, background 120ms ease;
 }
 
 .zone-mots:focus {
   border-color: var(--principal);
+  background: var(--surface);
+  box-shadow: 0 0 0 4px var(--violet-pale);
   outline: none;
 }
 
 .compteur {
+  padding: var(--espace-1) var(--espace-3);
+  border-radius: var(--rayon-pilule);
+  background: var(--violet-pale);
+  color: var(--principal);
   font-family: var(--police-titre);
-  font-weight: 500;
-  font-size: 18px;
-  color: var(--texte-secondaire);
+  font-weight: 600;
+  font-size: 17px;
 }
 
 .liste-equipes {
@@ -52,9 +58,19 @@
   border-radius: 50%;
   background: none;
   cursor: pointer;
+  transition: transform 100ms ease;
+}
+
+.bouton-pastille:active {
+  transform: scale(0.9);
 }
 
 /* ---------- Partie ---------- */
+
+/* Place sous la dernière carte pour que le message du bas ne cache rien */
+.ecran-partie .contenu {
+  padding-bottom: 104px;
+}
 
 .grille-equipes {
   display: grid;
@@ -75,77 +91,101 @@
   }
 }
 
+/* Carte d'équipe : en-tête teinté de la couleur de l'équipe */
 .carte-equipe {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espace-3);
+  --equipe-pale: color-mix(in srgb, var(--equipe) 14%, white);
+  --equipe-trait: color-mix(in srgb, var(--equipe) 32%, white);
   min-width: 0;
-  border-left-width: 8px;
+  overflow: hidden;
+  border: 2px solid var(--equipe-trait);
+  border-radius: var(--rayon-carte);
+  background: var(--surface);
+  box-shadow: 0 5px 0 var(--equipe-trait), 0 14px 30px rgba(30, 27, 75, 0.07);
 }
 
 .carte-equipe-haut {
   display: flex;
   align-items: center;
   gap: var(--espace-3);
-}
-
-.carte-equipe-identite {
-  flex: 1;
-  min-width: 0;
+  padding: var(--espace-3) var(--espace-3) var(--espace-3) var(--espace-4);
+  background: var(--equipe-pale);
 }
 
 .nom-equipe {
+  flex: 1;
+  min-width: 0;
   margin: 0;
-  font-family: var(--police-texte);
-  font-weight: 700;
-  font-size: var(--taille-nom-equipe);
-  line-height: 1.25;
-  overflow-wrap: anywhere;
-}
-
-.etape {
-  margin: 0;
-  font-size: var(--taille-petit);
-  color: var(--texte-secondaire);
-}
-
-.bouton-revenir {
-  color: var(--texte-secondaire);
-  font-size: 18px;
-}
-
-.bouton-revenir:disabled {
-  opacity: 0.3;
-  cursor: default;
-}
-
-.mot {
-  margin: 0;
-  padding: var(--espace-1) 0;
   font-family: var(--police-titre);
-  font-weight: 700;
-  font-size: var(--taille-mot);
+  font-weight: 600;
+  font-size: var(--taille-nom-equipe);
   line-height: 1.2;
   overflow-wrap: anywhere;
 }
 
-.mot--cache {
+/* Avancement « 4/12 » à côté du nom */
+.avancement {
+  flex-shrink: 0;
+  padding: 3px 12px;
+  border-radius: var(--rayon-pilule);
+  background: var(--equipe);
+  color: var(--sur-equipe);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.14);
+  font-family: var(--police-titre);
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.4;
+}
+
+.avancement-total {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.carte-equipe-corps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espace-3);
+  padding: var(--espace-4) var(--espace-4) var(--espace-3);
+}
+
+.mot {
+  margin: 0;
   width: 100%;
+  padding: var(--espace-1) 0;
+  text-align: center;
+  font-family: var(--police-titre);
+  font-weight: 700;
+  font-size: var(--taille-mot);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.mot--cache {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   min-height: var(--hauteur-bouton);
   padding: var(--espace-2) var(--espace-3);
-  border: 2px dashed var(--bordure);
-  border-radius: 12px;
-  background: var(--fond);
+  border: 2px dashed var(--equipe-trait);
+  border-radius: 16px;
+  background: var(--equipe-pale);
   color: var(--texte-secondaire);
   font-size: 22px;
-  text-align: left;
   cursor: pointer;
+}
+
+.mot-indice {
+  font-family: var(--police-texte);
+  font-weight: 400;
+  font-size: var(--taille-petit);
 }
 
 /* Passeport : rangée de cases et tampons */
 .passeport {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 6px;
 }
 
@@ -159,7 +199,7 @@
 
 .case--en-cours {
   background: var(--surface);
-  box-shadow: 0 0 0 2px var(--texte);
+  box-shadow: 0 0 0 2px var(--equipe);
 }
 
 .tampon {
@@ -171,7 +211,7 @@
 }
 
 .tampon--nouveau {
-  animation: tampon var(--duree-tampon) cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  animation: tampon var(--duree-tampon) var(--rebond);
 }
 
 @keyframes tampon {
@@ -184,14 +224,22 @@
   }
 }
 
-.bouton-reussi {
+/* Retour arrière (1/5) à gauche de « Réussi » (4/5) */
+.actions-carte {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: var(--espace-2);
+  width: 100%;
   margin-top: var(--espace-1);
-  font-size: 20px;
 }
 
-/* Place sous la dernière carte pour que le message du bas ne cache rien */
-.ecran-partie .contenu {
-  padding-bottom: 96px;
+.bouton-retour {
+  padding: 0;
+}
+
+.bouton-reussi {
+  padding: 0 var(--espace-3);
+  font-size: 21px;
 }
 
 .fin-partie {
@@ -230,11 +278,11 @@
   display: flex;
   align-items: center;
   gap: var(--espace-3);
-  min-height: 52px;
+  min-height: 56px;
 }
 
 .ligne-arrivee + .ligne-arrivee {
-  border-top: 1px solid var(--bordure);
+  border-top: 2px dashed var(--bordure);
 }
 
 .rang {
@@ -243,17 +291,25 @@
   text-align: center;
   font-family: var(--police-titre);
   font-weight: 700;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .ligne-arrivee-nom {
   flex: 1;
   min-width: 0;
-  font-weight: 700;
+  font-family: var(--police-titre);
+  font-weight: 600;
+  font-size: 17px;
   overflow-wrap: anywhere;
 }
 
 .ligne-arrivee--en-jeu .rang {
+  color: var(--texte-secondaire);
+}
+
+.etape {
+  margin: 0;
+  font-size: var(--taille-petit);
   color: var(--texte-secondaire);
 }
 
@@ -264,9 +320,13 @@
 }
 
 .titre-classement {
-  margin-top: var(--espace-2);
+  margin-top: var(--espace-3);
   text-align: center;
-  font-size: 28px;
+  font-size: 32px;
+  background: var(--degrade-titre);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .podium {
@@ -291,8 +351,9 @@
   margin: 0;
   width: 100%;
   text-align: center;
-  font-weight: 700;
-  line-height: 1.25;
+  font-family: var(--police-titre);
+  font-weight: 600;
+  line-height: 1.2;
   overflow-wrap: anywhere;
 }
 
@@ -304,9 +365,9 @@
   justify-content: flex-start;
   gap: var(--espace-1);
   padding-top: var(--espace-2);
-  border-radius: 14px 14px 4px 4px;
-  box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.12), var(--ombre-carte);
-  animation: marche 500ms cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
+  border-radius: 18px 18px 6px 6px;
+  box-shadow: inset 0 -8px 0 rgba(0, 0, 0, 0.14), 0 14px 30px rgba(30, 27, 75, 0.1);
+  animation: marche 500ms var(--rebond) both;
   transform-origin: bottom;
 }
 
@@ -322,7 +383,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   color: var(--encre);
   font-family: var(--police-titre);
   font-weight: 700;

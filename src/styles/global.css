@@ -19,14 +19,28 @@ body {
   margin: 0;
   min-height: 100dvh;
   background-color: var(--fond);
-  /* Motif guilloché des passeports, à 5 % d'opacité : invisible derrière le texte */
-  background-image: url("/guilloche.svg");
   color: var(--texte);
   font-family: var(--police-texte);
   font-size: var(--taille-texte);
   line-height: 1.5;
-  /* L'écran ne doit jamais défiler horizontalement (section 5.9) */
+  /* L'écran ne doit jamais défiler horizontalement */
   overflow-x: hidden;
+}
+
+/* Fond : grandes taches de couleur pastel + motif guilloché très léger */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    url("/guilloche.svg"),
+    radial-gradient(circle at 0% 0%, rgba(255, 95, 162, 0.16) 0, transparent 38%),
+    radial-gradient(circle at 100% 18%, rgba(56, 189, 248, 0.16) 0, transparent 40%),
+    radial-gradient(circle at 15% 85%, rgba(255, 197, 61, 0.18) 0, transparent 40%),
+    radial-gradient(circle at 95% 95%, rgba(108, 76, 245, 0.14) 0, transparent 42%),
+    var(--fond);
 }
 
 #root {
@@ -55,53 +69,66 @@ textarea {
   color: inherit;
 }
 
-/* Contour visible au focus clavier (section 5.9) */
+/* Contour visible au focus clavier */
 :focus-visible {
   outline: 3px solid var(--principal);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 /* ---------- Carte ---------- */
 
 .carte {
   background: var(--surface);
-  border: 1px solid var(--bordure);
+  border: 2px solid var(--bordure);
   border-radius: var(--rayon-carte);
   box-shadow: var(--ombre-carte);
   padding: var(--espace-4);
 }
 
-/* ---------- Boutons ---------- */
+/* ---------- Boutons en relief ---------- */
 
 .bouton {
+  --b-fond: var(--principal);
+  --b-relief: var(--violet-fonce);
+  --b-texte: var(--blanc);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--espace-2);
   min-height: var(--hauteur-bouton);
+  margin-bottom: var(--relief);
   padding: 0 var(--espace-5);
   border: none;
-  border-radius: var(--rayon-pilule);
-  background: var(--principal);
-  color: var(--blanc);
+  border-radius: var(--rayon-bouton);
+  background: var(--b-fond);
+  color: var(--b-texte);
+  box-shadow: 0 var(--relief) 0 var(--b-relief);
   font-family: var(--police-titre);
-  font-weight: 500;
-  font-size: 18px;
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  box-shadow: var(--ombre-bouton);
-  transition: transform 100ms ease, filter 100ms ease;
+  transition: transform 80ms ease, box-shadow 80ms ease, filter 120ms ease;
   touch-action: manipulation;
+  user-select: none;
 }
 
-.bouton:active {
-  transform: scale(0.97);
+@media (hover: hover) {
+  .bouton:hover:not(:disabled) {
+    filter: brightness(1.06);
+  }
+}
+
+/* Le bouton s'enfonce au toucher */
+.bouton:active:not(:disabled) {
+  transform: translateY(calc(var(--relief) - 1px));
+  box-shadow: 0 1px 0 var(--b-relief);
 }
 
 .bouton:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
+  filter: saturate(0.4);
 }
 
 .bouton--large {
@@ -109,20 +136,27 @@ textarea {
 }
 
 .bouton--succes {
-  background: var(--succes);
-  box-shadow: 0 4px 12px rgba(31, 166, 114, 0.3);
+  --b-fond: var(--succes);
+  --b-relief: var(--vert-fonce);
 }
 
 .bouton--danger {
-  background: var(--danger);
-  box-shadow: 0 4px 12px rgba(217, 54, 74, 0.3);
+  --b-fond: var(--danger);
+  --b-relief: var(--rouge-fonce);
 }
 
 .bouton--secondaire {
-  background: var(--surface);
-  color: var(--principal);
+  --b-fond: var(--surface);
+  --b-relief: var(--bordure);
+  --b-texte: var(--principal);
   border: 2px solid var(--bordure);
-  box-shadow: none;
+}
+
+.bouton--neutre {
+  --b-fond: var(--surface);
+  --b-relief: #d9d3f3;
+  --b-texte: var(--texte-secondaire);
+  border: 2px solid var(--bordure);
 }
 
 /* Petit bouton rond (icônes : œil, menu, supprimer) */
@@ -130,19 +164,30 @@ textarea {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: var(--zone-tactile-min);
   height: var(--zone-tactile-min);
   border: none;
-  border-radius: 50%;
+  border-radius: 14px;
   background: transparent;
   color: inherit;
-  font-size: 20px;
   cursor: pointer;
   touch-action: manipulation;
+  transition: background 120ms ease, transform 80ms ease;
 }
 
 .bouton-icone:active {
-  background: rgba(45, 63, 168, 0.1);
+  transform: scale(0.92);
+  background: var(--violet-pale);
+}
+
+.bouton-icone--doux {
+  background: var(--violet-pale);
+  color: var(--principal);
+}
+
+.icone {
+  flex-shrink: 0;
 }
 
 /* Respecter « Réduire les animations » du téléphone */
@@ -151,6 +196,7 @@ textarea {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }

@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { DELAI_DOUBLE_APPUI, DUREE_REVELATION_MOT } from "../constantes";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { DELAI_DOUBLE_APPUI, DUREE_REVELATION_MOT, couleurTexteSur } from "../constantes";
 import type { Equipe } from "../types";
+import Icone from "./Icone";
 import Passeport from "./Passeport";
 import PastilleEquipe from "./PastilleEquipe";
 
@@ -36,41 +37,49 @@ export default function CarteEquipe({ equipe, mots, motsMasques, onReussi, onRev
   const cache = motsMasques && !revele;
 
   return (
-    <article className="carte carte-equipe" style={{ borderLeftColor: equipe.couleur }}>
-      <div className="carte-equipe-haut">
+    <article
+      className="carte-equipe"
+      style={{ "--equipe": equipe.couleur, "--sur-equipe": couleurTexteSur(equipe.couleur) } as CSSProperties}
+    >
+      <header className="carte-equipe-haut">
         <PastilleEquipe equipe={equipe} />
-        <div className="carte-equipe-identite">
-          <h2 className="nom-equipe">{equipe.nom}</h2>
-          <p className="etape">
-            Mot {equipe.indexMot + 1} sur {mots.length}
+        <h2 className="nom-equipe">{equipe.nom}</h2>
+        <span className="avancement" aria-label={`Mot ${equipe.indexMot + 1} sur ${mots.length}`}>
+          {equipe.indexMot + 1}
+          <span className="avancement-total">/{mots.length}</span>
+        </span>
+      </header>
+
+      <div className="carte-equipe-corps">
+        {cache ? (
+          <button className="mot mot--cache" onClick={() => setRevele(true)}>
+            Mot caché
+            <span className="mot-indice">Toucher pour voir</span>
+          </button>
+        ) : (
+          <p className="mot" aria-live="polite">
+            {mot}
           </p>
+        )}
+
+        <Passeport equipe={equipe} nombreDeMots={mots.length} />
+
+        <div className="actions-carte">
+          <button
+            className="bouton bouton--neutre bouton-retour"
+            onClick={() => onRevenir(equipe)}
+            disabled={equipe.indexMot === 0}
+            aria-label={`Ramener ${equipe.nom} au mot précédent`}
+            title="Revenir d'un mot"
+          >
+            <Icone nom="retour" taille={24} />
+          </button>
+          <button className="bouton bouton--succes bouton-reussi" onClick={reussi}>
+            <Icone nom="valider" taille={24} />
+            Réussi
+          </button>
         </div>
-        <button
-          className="bouton-icone bouton-revenir"
-          onClick={() => onRevenir(equipe)}
-          disabled={equipe.indexMot === 0}
-          aria-label={`Ramener ${equipe.nom} au mot précédent`}
-          title="Revenir d'un mot"
-        >
-          ↩︎
-        </button>
       </div>
-
-      {cache ? (
-        <button className="mot mot--cache" onClick={() => setRevele(true)}>
-          Mot caché
-        </button>
-      ) : (
-        <p className="mot" aria-live="polite">
-          {mot}
-        </p>
-      )}
-
-      <Passeport equipe={equipe} nombreDeMots={mots.length} />
-
-      <button className="bouton bouton--succes bouton--large bouton-reussi" onClick={reussi}>
-        Réussi
-      </button>
     </article>
   );
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Icone from "./Icone";
 
 export type ElementMenu = {
   libelle: string;
@@ -29,7 +30,7 @@ export default function Menu({ elements }: Props) {
         aria-haspopup="menu"
         aria-expanded={ouvert}
       >
-        ⋯
+        <Icone nom="menu" />
       </button>
       {ouvert && (
         <>

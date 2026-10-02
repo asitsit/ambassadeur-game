@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import ChoixCouleurEmoji from "../composants/ChoixCouleurEmoji";
 import Entete from "../composants/Entete";
+import Icone from "../composants/Icone";
 import PastilleEquipe from "../composants/PastilleEquipe";
 import { MAX_EQUIPES } from "../constantes";
 import { useConfirmation } from "../etat/confirmation";
@@ -72,7 +73,9 @@ export default function Preparation({ partie, actions }: Props) {
 
       <main className="contenu preparation">
         <section className="carte bloc">
-          <h1>Les mots</h1>
+          <h1 className="titre-bloc">
+            <span className="titre-bloc-emoji" aria-hidden="true">📜</span> Les mots
+          </h1>
           <label htmlFor="mots" className="aide">
             Un mot ou une expression par ligne, dans l'ordre du jeu.
           </label>
@@ -94,13 +97,16 @@ export default function Preparation({ partie, actions }: Props) {
               onClick={melangerMots}
               disabled={mots.length < 2}
             >
-              🔀 Mélanger l'ordre
+              <Icone nom="melanger" taille={18} />
+              Mélanger l'ordre
             </button>
           </div>
         </section>
 
         <section className="carte bloc">
-          <h1>Les équipes</h1>
+          <h1 className="titre-bloc">
+            <span className="titre-bloc-emoji" aria-hidden="true">🎌</span> Les équipes
+          </h1>
           {partie.equipes.length === 0 ? (
             <p className="vide">Aucune équipe pour l'instant. Ajoutez la première délégation !</p>
           ) : (
@@ -129,7 +135,7 @@ export default function Preparation({ partie, actions }: Props) {
                     onClick={() => supprimer(equipe)}
                     aria-label={`Supprimer ${equipe.nom}`}
                   >
-                    ✕
+                    <Icone nom="fermer" taille={20} />
                   </button>
                 </li>
               ))}
@@ -143,7 +149,8 @@ export default function Preparation({ partie, actions }: Props) {
             }}
             disabled={!peutAjouterEquipe(partie.equipes)}
           >
-            + Ajouter une équipe
+            <Icone nom="plus" />
+            Ajouter une équipe
           </button>
           {!peutAjouterEquipe(partie.equipes) && (
             <p className="aide centre">{MAX_EQUIPES} équipes au maximum</p>

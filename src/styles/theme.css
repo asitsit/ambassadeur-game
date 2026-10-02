@@ -1,59 +1,72 @@
 /*
   Thème de L'Ambassadeur : toutes les valeurs de la direction artistique
-  (cahier des charges, section 5) rassemblées en variables CSS.
-  Pour changer une couleur partout dans l'application, il suffit de la changer ici.
+  rassemblées en variables CSS. Pour changer une couleur partout, c'est ici.
+
+  Direction : ludique et moderne. Fond pastel, couleurs vives, boutons
+  en relief qui s'enfoncent au toucher, formes bien arrondies.
 */
 
 @import "@fontsource/fredoka/500.css";
+@import "@fontsource/fredoka/600.css";
 @import "@fontsource/fredoka/700.css";
 @import "@fontsource/atkinson-hyperlegible/400.css";
 @import "@fontsource/atkinson-hyperlegible/700.css";
 
 :root {
-  /* Palette de l'interface (section 5.2) */
-  --papier-visa: #eef3ff;     /* fond principal */
-  --blanc: #ffffff;           /* surfaces, cartes */
-  --bleu-ambassade: #2d3fa8;  /* couleur principale : boutons, en-tête */
-  --encre: #1c2147;           /* texte */
-  --encre-pale: #5d6490;      /* texte secondaire */
-  --vert-visa: #1fa672;       /* validation, succès */
-  --or-du-sceau: #ffc53d;     /* célébration, médailles */
-  --rouge-cachet: #d9364a;    /* danger, suppression */
-  --filigrane: #d5dcf2;       /* bordures, cases vides */
+  /* Palette */
+  --papier: #f7f4ff;          /* fond principal, lilas très pâle */
+  --blanc: #ffffff;
+  --violet: #6c4cf5;          /* couleur principale */
+  --violet-fonce: #4b2fd0;    /* relief des boutons violets */
+  --violet-pale: #ece7ff;
+  --rose: #ff5fa2;
+  --orange: #ff9f43;
+  --encre: #1e1b4b;           /* texte */
+  --encre-pale: #6b6893;      /* texte secondaire */
+  --vert: #12a150;            /* « Réussi » */
+  --vert-fonce: #0b7a3b;
+  --or: #ffc53d;              /* célébration, médailles */
+  --or-fonce: #e0a100;
+  --rouge: #f43f5e;           /* danger */
+  --rouge-fonce: #c81e43;
+  --trait: #e7e2fa;           /* bordures, cases vides */
 
   /* Rôles : on utilise ces noms dans les composants */
-  --fond: var(--papier-visa);
+  --fond: var(--papier);
   --surface: var(--blanc);
   --texte: var(--encre);
   --texte-secondaire: var(--encre-pale);
-  --principal: var(--bleu-ambassade);
-  --succes: var(--vert-visa);
-  --danger: var(--rouge-cachet);
-  --bordure: var(--filigrane);
+  --principal: var(--violet);
+  --succes: var(--vert);
+  --danger: var(--rouge);
+  --bordure: var(--trait);
+  --degrade-titre: linear-gradient(90deg, var(--violet) 0%, var(--rose) 55%, var(--orange) 100%);
 
-  /* Polices (section 5.3) */
+  /* Polices */
   --police-titre: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
   --police-texte: "Atkinson Hyperlegible", system-ui, sans-serif;
 
   /* Échelle de texte sur téléphone */
-  --taille-mot: 28px;
+  --taille-mot: 30px;
   --taille-titre: 24px;
-  --taille-nom-equipe: 18px;
+  --taille-nom-equipe: 19px;
   --taille-texte: 16px;
   --taille-petit: 14px;
 
-  /* Formes (section 5.4) */
-  --rayon-carte: 18px;
+  /* Formes */
+  --rayon-carte: 24px;
+  --rayon-bouton: 18px;
   --rayon-pilule: 999px;
-  --rayon-case: 4px;
+  --rayon-case: 5px;
   --taille-case: 16px;
   --taille-pastille: 40px;
-  --hauteur-bouton: 52px;
+  --hauteur-bouton: 56px;
   --zone-tactile-min: 44px;
+  --relief: 5px;              /* épaisseur du relief des boutons */
 
-  /* Ombre douce colorée (bleu, pas gris) */
-  --ombre-carte: 0 2px 4px rgba(45, 63, 168, 0.06), 0 8px 24px rgba(45, 63, 168, 0.1);
-  --ombre-bouton: 0 4px 12px rgba(45, 63, 168, 0.25);
+  /* Ombres colorées (jamais grises) */
+  --ombre-carte: 0 4px 0 var(--trait), 0 14px 30px rgba(108, 76, 245, 0.08);
+  --ombre-flottante: 0 18px 40px rgba(30, 27, 75, 0.18);
 
   /* Espacements */
   --espace-1: 4px;
@@ -65,4 +78,5 @@
 
   /* Animations */
   --duree-tampon: 300ms;
+  --rebond: cubic-bezier(0.2, 0.9, 0.3, 1.25);
 }

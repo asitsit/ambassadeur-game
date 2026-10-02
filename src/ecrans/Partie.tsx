@@ -3,6 +3,7 @@ import { celebrer } from "../celebration/celebrer";
 import BandeauArrivee from "../composants/BandeauArrivee";
 import CarteEquipe from "../composants/CarteEquipe";
 import Entete from "../composants/Entete";
+import Icone from "../composants/Icone";
 import Menu from "../composants/Menu";
 import MessageAnnuler from "../composants/MessageAnnuler";
 import PastilleEquipe from "../composants/PastilleEquipe";
@@ -116,7 +117,7 @@ export default function Partie({ partie, actions }: Props) {
           aria-label={partie.motsMasques ? "Afficher les mots" : "Masquer les mots"}
           title={partie.motsMasques ? "Afficher les mots" : "Masquer les mots"}
         >
-          {partie.motsMasques ? "🙈" : "👁️"}
+          <Icone nom={partie.motsMasques ? "oeilBarre" : "oeil"} />
         </button>
         <Menu
           elements={[
@@ -163,12 +164,12 @@ export default function Partie({ partie, actions }: Props) {
                   <PastilleEquipe equipe={equipe} taille={32} />
                   <span className="ligne-arrivee-nom">{equipe.nom}</span>
                   <button
-                    className="bouton-icone bouton-revenir"
+                    className="bouton-icone bouton-icone--doux"
                     onClick={() => annulerArrivee(equipe)}
                     aria-label={`Annuler l'arrivée de ${equipe.nom}`}
                     title="Annuler l'arrivée"
                   >
-                    ↩︎
+                    <Icone nom="retour" taille={20} />
                   </button>
                 </li>
               ))}

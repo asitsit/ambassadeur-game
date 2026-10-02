@@ -7,7 +7,7 @@ export const DELAI_DOUBLE_APPUI = 600;
 /** Durée d'affichage du message « … passent au mot 5. » avec « Annuler ». */
 export const DUREE_MESSAGE_ANNULER = 5000;
 /** Durée d'affichage du bandeau « mission accomplie ». */
-export const DUREE_BANDEAU_ARRIVEE = 3000;
+export const DUREE_BANDEAU_ARRIVEE = 2000;
 /** Durée pendant laquelle un mot caché reste visible après un toucher. */
 export const DUREE_REVELATION_MOT = 3000;
 
