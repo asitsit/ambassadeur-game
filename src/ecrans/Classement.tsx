@@ -2,7 +2,7 @@ import Entete from "../composants/Entete";
 import PastilleEquipe from "../composants/PastilleEquipe";
 import Podium from "../composants/Podium";
 import { useConfirmation } from "../etat/confirmation";
-import { confirmerNouvellePartie } from "../etat/nouvellePartie";
+import { confirmerNouvellePartie, confirmerRecommencer } from "../etat/nouvellePartie";
 import { equipesArrivees, equipesEnJeu } from "../etat/regles";
 import type { ActionsPartie } from "../etat/usePartie";
 import type { Partie } from "../types";
@@ -16,11 +16,15 @@ export default function Classement({ partie, actions }: Props) {
   const enJeu = [...equipesEnJeu(partie.equipes)].sort((a, b) => b.indexMot - a.indexMot);
   const toutesArrivees = partie.equipes.length > 0 && enJeu.length === 0;
 
-  async function nouvellePartie() {
-    if (await confirmerNouvellePartie(demander)) {
-      actions.nouvellePartie();
+  async function recommencer() {
+    if (await confirmerRecommencer(demander)) {
+      actions.recommencerPartie();
       actions.allerA("partie");
     }
+  }
+
+  async function nouvellePartie() {
+    if (await confirmerNouvellePartie(demander)) actions.nouvellePartie();
   }
 
   return (
@@ -63,9 +67,14 @@ export default function Classement({ partie, actions }: Props) {
         <button className="bouton bouton--large" onClick={() => actions.allerA("partie")}>
           Retour à la partie
         </button>
-        <button className="bouton bouton--secondaire bouton--large" onClick={nouvellePartie}>
-          Nouvelle partie
-        </button>
+        <div className="barre-bas-paire">
+          <button className="bouton bouton--secondaire" onClick={recommencer}>
+            Recommencer
+          </button>
+          <button className="bouton bouton--secondaire" onClick={nouvellePartie}>
+            Nouvelle partie
+          </button>
+        </div>
       </footer>
     </div>
   );

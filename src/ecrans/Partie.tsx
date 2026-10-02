@@ -9,7 +9,7 @@ import MessageAnnuler from "../composants/MessageAnnuler";
 import PastilleEquipe from "../composants/PastilleEquipe";
 import { DUREE_BANDEAU_ARRIVEE } from "../constantes";
 import { useConfirmation } from "../etat/confirmation";
-import { confirmerNouvellePartie } from "../etat/nouvellePartie";
+import { confirmerNouvellePartie, confirmerRecommencer } from "../etat/nouvellePartie";
 import { useEcranAllume } from "../etat/useEcranAllume";
 import { equipesArrivees, equipesEnJeu, medaille } from "../etat/regles";
 import type { ActionsPartie } from "../etat/usePartie";
@@ -83,26 +83,23 @@ export default function Partie({ partie, actions }: Props) {
     setMessage(null);
   }
 
-  async function revenir(equipe: Equipe) {
-    const ok = await demander(`Ramener ${equipe.nom} au mot ${equipe.indexMot} ?`, {
-      confirmer: "Ramener",
-    });
-    if (ok) actions.annuler(equipe.id);
+  // Revenir d'un mot (ou annuler une arrivée) se fait sans confirmation
+  function revenir(equipe: Equipe) {
+    actions.annuler(equipe.id);
+    if (arrivee?.equipe.id === equipe.id) setArrivee(null);
+    if (message?.equipeId === equipe.id) setMessage(null);
   }
 
-  async function annulerArrivee(equipe: Equipe) {
-    const ok = await demander(`Remettre ${equipe.nom} en jeu, au dernier mot ?`, {
-      confirmer: "Remettre en jeu",
-    });
-    if (ok) actions.annuler(equipe.id);
+  async function recommencer() {
+    if (await confirmerRecommencer(demander)) {
+      setMessage(null);
+      setArrivee(null);
+      actions.recommencerPartie();
+    }
   }
 
   async function nouvellePartie() {
-    if (await confirmerNouvellePartie(demander)) {
-      setMessage(null);
-      setArrivee(null);
-      actions.nouvellePartie();
-    }
+    if (await confirmerNouvellePartie(demander)) actions.nouvellePartie();
   }
 
   return (
@@ -122,9 +119,10 @@ export default function Partie({ partie, actions }: Props) {
         <Menu
           elements={[
             { libelle: "Modifier la partie", action: () => actions.allerA("preparation") },
+            { libelle: "Recommencer la partie", action: recommencer },
+            { libelle: "Nouvelle partie", action: nouvellePartie },
             { libelle: "Voir le classement", action: () => actions.allerA("classement") },
             { libelle: partie.sonActif ? "Couper le son" : "Activer le son", action: actions.basculerSon },
-            { libelle: "Nouvelle partie", action: nouvellePartie },
           ]}
         />
       </Entete>
@@ -165,7 +163,7 @@ export default function Partie({ partie, actions }: Props) {
                   <span className="ligne-arrivee-nom">{equipe.nom}</span>
                   <button
                     className="bouton-icone bouton-icone--doux"
-                    onClick={() => annulerArrivee(equipe)}
+                    onClick={() => revenir(equipe)}
                     aria-label={`Annuler l'arrivée de ${equipe.nom}`}
                     title="Annuler l'arrivée"
                   >

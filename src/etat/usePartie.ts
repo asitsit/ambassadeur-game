@@ -27,6 +27,8 @@ export type ActionsPartie = {
   /** Ramène l'équipe au mot précédent (ou annule son arrivée). */
   annuler: (id: string) => void;
   /** Remet toutes les équipes au premier mot. Mots et équipes sont conservés. */
+  recommencerPartie: () => void;
+  /** Efface les équipes et les mots, et revient à l'écran de préparation. */
   nouvellePartie: () => void;
   basculerMotsMasques: () => void;
   basculerSon: () => void;
@@ -106,7 +108,10 @@ export function usePartie(): [Partie, ActionsPartie] {
           }),
         ),
 
-      nouvellePartie: () => setPartie((p) => ({ ...p, equipes: remettreAuDebut(p.equipes) })),
+      recommencerPartie: () => setPartie((p) => ({ ...p, equipes: remettreAuDebut(p.equipes) })),
+
+      // Les réglages (son, mots masqués) sont conservés
+      nouvellePartie: () => setPartie((p) => ({ ...p, mots: [], equipes: [], ecran: "preparation" })),
 
       basculerMotsMasques: () => setPartie((p) => ({ ...p, motsMasques: !p.motsMasques })),
 

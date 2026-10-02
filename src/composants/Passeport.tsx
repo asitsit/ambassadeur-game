@@ -23,7 +23,7 @@ function inclinaison(graine: string, index: number): number {
   return (h % 25) - 12;
 }
 
-/** Rangée de cases, une par mot : tampon pour les mots trouvés, case entourée pour le mot en cours. */
+/** Rangée de cases sur une seule ligne, une par mot : tampon pour les mots trouvés, case entourée pour le mot en cours. */
 export default function Passeport({ equipe, nombreDeMots }: Props) {
   // Seuls les tampons posés pendant que la carte est affichée sont animés
   // (pas tous les tampons d'un coup au rechargement de la page).
@@ -35,6 +35,7 @@ export default function Passeport({ equipe, nombreDeMots }: Props) {
   return (
     <div
       className="passeport"
+      style={{ "--nombre-cases": nombreDeMots } as CSSProperties}
       role="img"
       aria-label={`Passeport : ${Math.min(equipe.indexMot, nombreDeMots)} tampons sur ${nombreDeMots}`}
     >

@@ -94,6 +94,18 @@
   background: linear-gradient(to bottom, rgba(247, 244, 255, 0), var(--fond) 35%);
 }
 
+/* Deux boutons côte à côte dans la barre du bas */
+.barre-bas-paire {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--espace-2);
+}
+
+.barre-bas-paire .bouton {
+  padding: 0 var(--espace-2);
+  font-size: 17px;
+}
+
 .erreur {
   margin: 0;
   padding: var(--espace-2) var(--espace-3);

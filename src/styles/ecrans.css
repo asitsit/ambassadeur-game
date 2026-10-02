@@ -181,19 +181,22 @@
   font-size: var(--taille-petit);
 }
 
-/* Passeport : rangée de cases et tampons */
+/* Passeport : toujours sur une seule ligne, les cases rétrécissent s'il y a beaucoup de mots */
 .passeport {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
-  gap: 6px;
+  width: 100%;
+  padding: 3px;
+  gap: clamp(1px, calc(180px / var(--nombre-cases, 10)), 6px);
 }
 
 .case {
   position: relative;
-  width: var(--taille-case);
-  height: var(--taille-case);
-  border-radius: var(--rayon-case);
+  flex: 0 1 var(--taille-case);
+  min-width: 0;
+  aspect-ratio: 1;
+  border-radius: 30%;
   background: var(--bordure);
 }
 
@@ -204,9 +207,10 @@
 
 .tampon {
   position: absolute;
-  inset: -3px;
-  width: calc(100% + 6px);
-  height: calc(100% + 6px);
+  left: -18%;
+  top: -18%;
+  width: 136%;
+  height: 136%;
   transform: rotate(var(--inclinaison, 0deg));
 }
 
